@@ -8,6 +8,7 @@ import { addItem } from './CartSlice';
 function ProductList({ onHomeClick }) {
     const [showCart, setShowCart] = useState(false);
     const [showPlants, setShowPlants] = useState(false); // State to control the visibility of the About Us page
+    const [addedToCart, setAddedToCart] = useState({});
     const dispatch = useDispatch();
 
     const plantsArray = [
@@ -217,6 +218,7 @@ function ProductList({ onHomeClick }) {
             ]
         }
     ];
+
     const styleObj = {
         backgroundColor: '#4CAF50',
         color: '#fff!important',
@@ -260,6 +262,10 @@ function ProductList({ onHomeClick }) {
 
     const handleAddToCart = (item) => {
         dispatch(addItem(item));
+        setAddedToCart( (prevState) => ({
+            ...prevState,
+            [item.name]: true, 
+        }));
     };
 
     return (
