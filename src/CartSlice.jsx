@@ -30,18 +30,24 @@ export const CartSlice = createSlice({
       if (element) {
         state.items.quantity = item.quantity;
       }
-      /*
-      To create this function, start by extracting the item's name and amount from the action.payload.
-      Then, look for the item in the state.items array that matches the extracted name. 
-      If the item is found, update its quantity to the new amount provided in the payload. 
-      This ensures the item’s quantity is correctly updated based on the action.
-      */
-  
-  
+    },
+    incrementQuantity: (state, action) => {
+      const { payload: item } = action;
+      const element = state.items.find(i => i.name === item.name);
+      if (element) {
+        element.quantity++;
+      }
+    },
+    decrementQuantity: (state, action) => {
+      const { payload: item } = action;
+      const element = state.items.find(i => i.name === item.name);
+      if (element && element.quantity > 0) {
+        element.quantity--;
+      }
     },
   },
 });
 
-export const { addItem, removeItem, updateQuantity } = CartSlice.actions;
+export const { addItem, removeItem, updateQuantity, incrementQuantity, decrementQuantity } = CartSlice.actions;
 
 export default CartSlice.reducer;
